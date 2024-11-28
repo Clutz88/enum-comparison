@@ -57,7 +57,6 @@ it('returns false for equals if value does not match')
         'different enum with incorrect value' => [AlternativeEnum::testing],
     ]);
 
-
 it('returns true for not equals if value does not match')
     ->expect(fn ($test) => StringEnum::test->notEquals($test))
     ->toBeTrue()
