@@ -4,15 +4,10 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/clutz88/enum-comparison/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/clutz88/enum-comparison/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/clutz88/enum-comparison.svg?style=flat-square)](https://packagist.org/packages/clutz88/enum-comparison)
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/enum-comparison.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/enum-comparison)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Provide functions that can be used in Enums for easy comparisons, such as:
+```php
+TestEnum::test->equals('test')
+```
 
 ## Installation
 
@@ -23,10 +18,30 @@ composer require clutz88/enum-comparison
 ```
 
 ## Usage
-
+Add the trait to your enums
 ```php
-$skeleton = new Clutz88\EnumComparison();
-echo $skeleton->echoPhrase('Hello, Clutz88!');
+enum TestEnum: string
+{
+    use HasComparisons;
+    
+    case test = 'test';
+}
+```
+
+Call the provided functions when you want to do a comparison of an Enum value
+```php
+$value_to_test = 'test';
+$enum_value_to_test = TestEnum::test;
+
+TestEnum::test->is($enum_value_to_test); // true
+TestEnum::test->is($value_to_test); // false
+TestEnum::test->isNot($enum_value_to_test); // false
+TestEnum::test->isNot($value_to_test); // true
+TestEnum::test->equals($value_to_test); // true
+TestEnum::test->equals('testing'); // false
+TestEnum::test->notEquals('testing'); // true
+
+$enum_value_to_test->equals($value_to_test); // true
 ```
 
 ## Testing
@@ -39,18 +54,9 @@ composer test
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
 - [Chris Cutts](https://github.com/Clutz88)
-- [All Contributors](../../contributors)
 
 ## License
 
